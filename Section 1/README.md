@@ -1,7 +1,5 @@
 # Section1: Data Pipelines
 
-Design and implement an hourly data pipeline to clean and transform membership application data using commercial scheduling tool for downstream usage (We will use airflow in our case).
-
 # Solution
 
 The data pipeline is built in the form of an Airflow DAG scripted in python to preprocess, validate, transform, and save the data. An airflow container will be set up to execute the DAG.
@@ -10,10 +8,10 @@ The data pipeline is built in the form of an Airflow DAG scripted in python to p
 |Path|Description|
 |:---|:----------|
 |`dags/validation_pipeline.py`|Main pipeline script|
-|`data/input/|Input data folder|
-|`data/output/|Ouput data folder. Have 2 subdirectories `successful` and `unsuccessful`|
-|Dockerfile|Docker file (to set up airflow)|
-|docker-compose.yml|Docker compose file (to set up airflow)|
+|`data/input/`|Input data folder|
+|`data/output/`|Ouput data folder. Have 2 subdirectories `successful` and `unsuccessful`|
+|`Dockerfile`|Docker file (to set up airflow)|
+|`docker-compose.yml`|Docker compose file (to set up airflow)|
 
 
 # Usage
