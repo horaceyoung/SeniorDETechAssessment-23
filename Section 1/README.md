@@ -24,23 +24,23 @@ To initialize the airflow docker image, run
 ```
 docker compose up airflow-init
 ```
-![initialization](images\initialization.png)
+![initialization](images/initialization.png)
 To run the airflow docker container, run
 ```
 docker compose up
 ```
-![container](images\container.png)
+![container](images/container.png)
 
 Now a localhosted airflow service will be accessible via localhost:8080. The default username and password are both airflow (for production usage a stricter secret control is necessary. We will use the default secrets for simplicity)
 
-![airflow](images\airflow.png)
+![airflow](images/airflow.png)
 
 We will be able to view the DAG in the web UI. We will then manually trigger the DAG.
-![dag](images\dag.png)
+![dag](images/dag.png)
 
 When the DAG finished executing we will have output data in data/output/
-![dag-run](images\dag-run.png)
-![output](images\output.png)
+![dag-run](images/dag-run.png)
+![output](images/output.png)
 
 # Pipeline Explanation
 
