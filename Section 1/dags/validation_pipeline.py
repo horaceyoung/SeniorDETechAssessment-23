@@ -13,6 +13,19 @@ output_folder_fail = "/opt/airflow/data/output/unsuccessful"
 # Use a variable to hold all application data
 applications = None
 
+# Function to parse and format date_of_birth
+def format_date_of_birth(date_of_birth):
+    formats = ["%Y-%m-%d", "%d-%m-%Y", "%Y/%m/%d", "%d/%m/%Y", "%Y%m%d", "%d%m%Y", "%m-%d-%Y", "%m%d%Y", "%m/%d/%Y"]
+    for fmt in formats:
+        try:
+            # Try parsing the date
+            parsed_date = datetime.strptime(date_of_birth, fmt)
+            # Return the date formatted as YYYYMMDD
+            return parsed_date.strftime('%Y%m%d')
+        except (ValueError, TypeError):
+            pass
+    return None
+
 # preprocess_applications reads all data from the input folder and store it in the global variable applications
 def preprocess_applications(**context):
     all_data = []
@@ -44,8 +57,8 @@ def validate_applications(**context):
         if pd.isnull(row["date_of_birth"]):
             return False
         else:
-            birthdate = pd.to_datetime(row["date_of_birth"], errors="coerce")
-            age = (datetime(2022, 1, 1) - birthdate).days / 365.25
+            birthdate = format_date_of_birth(row["date_of_birth"])
+            age = (datetime(2022, 1, 1) - pd.to_datetime(birthdate)).days / 365.25
             if age <= 18:
                 return False
 
@@ -74,7 +87,7 @@ def transform_applications(**context):
 
     def create_membership_id(row):
         last_name = row["last_name"]
-        birthdate_str = row["date_of_birth"]
+        birthdate_str = format_date_of_birth(row["date_of_birth"])
         hash_obj = sha256(str(birthdate_str).encode())
         short_hash = hash_obj.hexdigest()[:5]
         return f"{last_name}_{short_hash}"
@@ -98,9 +111,7 @@ def transform_applications(**context):
     df["last_name"] = name_split[1]
 
     # Format date of birth into YYYYMMDD
-    df["date_of_birth"] = pd.to_datetime(
-        df["date_of_birth"], errors="coerce"
-    ).dt.strftime("%Y%m%d")
+    df["date_of_birth"] = df["date_of_birth"].apply(format_date_of_birth)
 
     # Create a new field named above_18 based on the applicant's birthday
     df["above_18"] = (
