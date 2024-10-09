@@ -1,6 +1,6 @@
 # Solution
 
-To implement a database access strategy that accommodates the needs of various teams in your organization, you can define different database roles and permissions. This approach ensures that each team has the appropriate level of access to perform their tasks while maintaining data integrity and security.
+To implement a database access strategy that accommodates the needs of various teams in the organization, different database roles and permissions can be defined. This approach ensures that each team has the appropriate level of access to perform their tasks while maintaining data integrity and security.
 
 # Roles and Permissions
 

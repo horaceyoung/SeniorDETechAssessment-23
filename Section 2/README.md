@@ -14,11 +14,11 @@ The data pipeline is built in the form of an Airflow DAG scripted in python to p
 
 # Usage
 
-We will run a postgresql container from the latest postgres image. It is assumed that docker and psql is installed on the machine.
+A postgresql container will be run from the latest postgres image. It is assumed that docker and psql is installed on the machine.
 
 ## Build the image
 
-In the Dockerfile, we copied setup.sql to ` /docker-entrypoint-initdb.d/` so it will be automatically run when the container starts.
+In the Dockerfile, setup.sql is copied to ` /docker-entrypoint-initdb.d/` so it will be automatically run when the container starts.
 
 To build the docker image, run
 ```

@@ -31,14 +31,14 @@ docker compose up
 ```
 ![container](images/container.png)
 
-Now a localhosted airflow service will be accessible via localhost:8080. The default username and password are both airflow (for production usage a stricter secret control is necessary. We will use the default secrets for simplicity)
+Now a localhosted airflow service will be accessible via localhost:8080. The default username and password are both airflow (for production usage a stricter secret control is necessary. The default secrets will be used for simplicity)
 
 ![airflow](images/airflow.png)
 
-We will be able to view the DAG in the web UI. We will then manually trigger the DAG.
+We will be able to view the DAG in the web UI. Then the DAG is manually triggered.
 ![dag](images/dag.png)
 
-When the DAG finished executing we will have output data in data/output/
+When the DAG finished executing the output data will be stored in data/output/
 ![dag-run](images/dag-run.png)
 ![output](images/output.png)
 
@@ -170,12 +170,12 @@ def validate_applications(**context):
     context["ti"].xcom_push(key="unsuccessful_apps", value=unsuccessful_apps)
 ```
 
-In this step, we validate applications based on three criteria:
+In this step, applications are validated based on three criteria:
 1. mobile number must be an 8-digit number
 2. date of birth must be non-null and the applicant must be above 18 years old
 3. email must have a valid address and end with either .com or .net
 
-Then we split the data into successful applications and uncessful applications.
+Then the data is split into successful applications and uncessful applications.
 
 ## Transform
 
@@ -235,7 +235,7 @@ def transform_applications(**context):
     context["ti"].xcom_push(key="unsuccessful_apps", value=unsuccessful_apps)
 ```
 
-In the data, some names have saluations, so we remove them before split names into first name and last name.
+In the data, some names have saluations, so they are removed before split names into first name and last name.
 
 It then filter out records that don't have names and merge them with uncessful applications from the previous step (Though specified in the qustion statement, a better solution would be dropping the data with null names in the validation task).
 
